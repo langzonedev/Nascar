@@ -9,7 +9,8 @@ Build a fun endless oval stock-car racer with two-half steering, automatic accel
 ## Checks
 
 - JavaScript syntax checks for game, mechanics and service worker.
-- Six deterministic Node tests: repeating oval geometry; safe/aligned drafting; collision and adjacent lane separation; fast-rival boost timing; charge decay and boost lockout; ordered traffic paces.
+- Six deterministic mechanics tests: repeating oval geometry; safe/aligned drafting; collision and adjacent lane separation; fast-rival boost timing; charge decay and boost lockout; ordered traffic paces.
+- Four flow tests: both steering directions and release; pause/resume; three-second crash and retry; closing pause on end run.
 - Desktop browser review of title screen and live race.
 - Portrait 390 × 844 and landscape 844 × 390 responsive review using browser frames.
 - Crash flow, pause/resume, result screen and retry reviewed through browser UI.
