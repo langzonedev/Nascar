@@ -2,7 +2,7 @@
 
 **[Play Redline Oval](https://langzonedev.github.io/Nascar/)** · A Lang Systems original
 
-A sunset stock-car racer built for quick, satisfying runs on a phone or desktop. Accelerate automatically, weave through a moving pack, and use a rival's slipstream to launch past them. Original red number 27 racer, warm cartoon styling, rounded oval circuit, grandstands and a never-ending chase.
+A sunset stock-car battle built for a phone or desktop. Start **12th in a persistent 12-car field**, use slipstream boosts to earn positions, then defend the lead against opponents who can draft and boost too. Original red number 27 racer, banked left turns, warm cartoon styling and an endless oval chase.
 
 ## Controls
 
@@ -13,17 +13,23 @@ A sunset stock-car racer built for quick, satisfying runs on a phone or desktop.
 | Hold your line | Release | Release |
 | Pause / resume | Pause / Keep racing | P / Escape |
 
-Acceleration is automatic and pace increases over time. Follow closely behind a car to charge the yellow slipstream meter. A full charge automatically triggers a 2.8-second slingshot boost: move out and overtake! Fast rivals are the best drafting targets. Slow cars close quickly, so pass them early. Traffic changes lanes only at a visible distance.
+Acceleration is automatic, with a rolling start at race pace. Opponents have closely matched engines, so driving alongside them offers little advantage. Follow closely until the yellow meter fills, then **pull out when the automatic 2.8-second slingshot fires**. Plan a clear passing lane before the boost arrives.
 
-## The chase
+On corners, the outer edge rises, the cars lean with the banking, and your car drifts gently outward. Short steering corrections hold your line. The inside line is slightly faster; pushing against the edge scrubs speed.
 
-- Three traffic paces, five traffic lanes and smooth free steering.
-- 100 points per overtake, an extra 75 for a close call, 150 for a boost, plus distance points.
-- Gradually increasing speed and traffic frequency, with a gentle opening.
-- Lap progress, live speed, slipstream feedback, boost trails and optional engine audio.
+## Fight for the lead
+
+- A fixed field of eleven numbered rivals plus the player. No spawning or deleting cars to manufacture position.
+- Live **position / 12**, gap to the next opponent, lap progress and nearby-car warnings.
+- Rivals accelerate at roughly your unboosted pace, draft one another and you, change lanes to pass, and brake behind an occupied lane.
+- Opponent engines and boosts are independent of race position: no teleporting or rank-based catch-up speeds.
+- Once first, break a chaser's slipstream by changing lines and defend your position. Opponents can retake the lead.
+- 100 points per overtake, 150 per boost, distance points and 30 points per second leading.
+- Results show overtakes, boosts, distance, best position and cumulative time in the lead.
+- Smooth oval curvature, raised banking on both corners, road-aligned car lean and gentle camera roll. Reduced-motion mode removes camera roll and speed streaks.
 - Crash debris plays for three seconds before results; quick retry and local personal best.
-- Pauses when switching tabs or losing focus; reduced-motion support.
-- Installable PWA with phone icons, offline play after the first load, and an update prompt only when a new worker is waiting.
+- Pauses on tab/window focus loss; optional synthesized audio, initially muted.
+- Installable PWA with phone icons, offline play after the first load, and an update prompt only when a new version is waiting.
 - No accounts, tracking, external assets, paid services or runtime dependencies.
 
 This is an original stock-car arcade game inspired by animated racing films. It is not affiliated with Disney, Pixar or NASCAR, and uses no licensed characters or artwork.
