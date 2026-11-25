@@ -1,6 +1,6 @@
 # Acceptance and verification
 
-25 November 2026 — version 1.2.0, competitive field and banking.
+25 November 2026 — version 1.2.1, competitive field and banking.
 
 ## Goal and authority
 
@@ -49,10 +49,14 @@ Automated checks establish mechanics and controlled race scenarios, not human sk
 
 ## Release and rollback
 
-GitHub Actions runs syntax/tests before deploying main. Worker cache version is `redline-v1.2.0`. Revert the release commit and redeploy for rollback; increment worker cache version on subsequent changed releases.
+GitHub Actions runs syntax/tests before deploying main. Worker cache version is `redline-v1.2.1`. Revert the release commit and redeploy for rollback; increment worker cache version on subsequent changed releases.
 
 The live check exposed mixed cached assets after publication. Script, mechanics import and stylesheet URLs now carry a release version, and the worker precaches those exact URLs.
 
 ## Contact behaviour in 1.2.0
 
 Bump: 0.85-second settling period, boost/charge cancelled, immediate speed loss. Heat rises by 0.34–0.58 based on closing speed, then cools at 0.12/second. Hits register at most once per 0.65 seconds, including when multiple cars overlap. Threshold 1 triggers a 1.6-second spin at 42% target pace and 35% steering response. Spin recovery protection lasts 2.6 seconds from spin onset; physical bumper separation remains active throughout. A single heavy hit stays below the spin threshold. The run ends only through Pause → End run.
+
+## Visual pass in 1.2.1
+
+Asphalt is filled as a continuous ribbon instead of alternating per-segment trapezoids, eliminating horizontal seams. Kerb stripes are restricted to the road edges. All driving messages share one compact HUD container; short landscape screens place it to the left. Browser review covered the banked desktop menu, a 390 × 844 portrait race and an 844 × 390 landscape race. Road remained smooth and car remained unobstructed in those checks. Existing twenty mechanics/flow tests passed.

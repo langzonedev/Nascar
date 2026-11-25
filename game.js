@@ -1,4 +1,4 @@
-import {TRACK,FIELD_SIZE,clamp,curveAt,bankAt,racePace,linePace,trackGap,racePosition,createField,stepRivals,drafting,collision,stepCharge,freshContact,advanceContact,registerContact} from './engine.js?v=1.2.0';
+import {TRACK,FIELD_SIZE,clamp,curveAt,bankAt,racePace,linePace,trackGap,racePosition,createField,stepRivals,drafting,collision,stepCharge,freshContact,advanceContact,registerContact} from './engine.js?v=1.2.1';
 const $=id=>document.getElementById(id), canvas=$('game'),ctx=canvas.getContext('2d',{alpha:false});
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let W=0,H=0,dpr=1,mode='menu',time=0,last=0,world=TRACK*.2,x=0,vx=0,speed=0,charge=0,boost=0,elapsed=0,score=0,passes=0,boosts=0,position=12,bestPlace=12,leadTime=0,bumps=0,spins=0,shake=0,toastTime=0,best=0,carId=0;
@@ -105,16 +105,23 @@ function background(){const g=ctx.createLinearGradient(0,0,0,H*.6);g.addColorSto
 for(let side=0;side<2;side++){let bx=side?W*.74:-W*.06,bw=W*.34;poly([[bx,H*.4],[bx+bw,H*.4],[bx+bw*.91,H*.32],[bx+bw*.1,H*.32]],'#525e6b');for(let r=0;r<5;r++){ctx.fillStyle=['#caaa91','#f1c98d','#a97f77'][r%3];ctx.fillRect(bx,H*(.335+r*.012),bw,H*.005);for(let n=0;n<30;n++){ctx.fillStyle=n%3?'#d4d2b5':'#e77d5f';ctx.fillRect(bx+n*bw/30,H*(.33+r*.012),2,2)}}ctx.fillStyle='#3c5363';ctx.fillRect(bx-5,H*.315,bw+10,5)}for(let n=0;n<4;n++){let a=W*(.08+n*.29);ctx.strokeStyle='#536372';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(a,H*.4);ctx.lineTo(a,H*.21);ctx.stroke();rr(a-16,H*.21,32,5,1,'#fff1ca')}
 }
 function drawRoad(){
-  // Project each lane independently: outside edge rises on the banked corners.
+  const depths=[];for(let z=35000;z>350;z-=220)depths.push(z);depths.push(350);
+  // Fill continuous ribbons once. Per-segment road fills expose horizontal seams.
+  const ribbon=(left,right,color)=>{
+    const points=depths.map(z=>{const p=project(z,left);return [p.x,p.y];});
+    for(const z of [...depths].reverse()){const p=project(z,right);points.push([p.x,p.y]);}
+    poly(points,color);
+  };
   const strip=(far,near,left,right,color)=>{
     const a=project(far,left),b=project(far,right),c=project(near,right),d=project(near,left);
-    poly([[a.x,a.y-.7],[b.x,b.y-.7],[c.x,c.y+.7],[d.x,d.y+.7]],color);
+    poly([[a.x,a.y],[b.x,b.y],[c.x,c.y],[d.x,d.y]],color);
   };
-  for(let z=35000;z>350;z-=220){
-    const near=z-220,stripe=Math.floor((world+z)/1400)%2;
-    strip(z,near,-1.045,1.045,stripe?'#fff2d8':'#d86f58');
-    strip(z,near,-1,1,stripe?'#505965':'#525b66');
-    for(const lane of [-.96,.96])strip(z,near,lane-.006,lane+.006,'#ecd7a1');
+  ribbon(-1.045,-1,'#fff2d8');ribbon(1,1.045,'#fff2d8');
+  ribbon(-1,1,'#505965');
+  for(const lane of [-.96,.96])ribbon(lane-.006,lane+.006,'#ecd7a1');
+  for(let i=0;i<depths.length-1;i++){
+    const z=depths[i],near=depths[i+1],stripe=Math.floor((world+z)/1400)%2;
+    if(stripe){strip(z,near,-1.045,-1,'#d86f58');strip(z,near,1,1.045,'#d86f58');}
     if(Math.floor((world+z)/650)%3!==0)for(const lane of [-.6,-.2,.2,.6])strip(z,near,lane-.004,lane+.004,'#d0c9b4');
     for(const side of [-1,1]){
       const a=project(z,side*1.17),b=project(near,side*1.17);

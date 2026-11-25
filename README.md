@@ -26,7 +26,7 @@ On corners, the outer edge rises, the cars lean with the banking, and your car d
 - Once first, break a chaser's slipstream by changing lines and defend your position. Opponents can retake the lead.
 - 100 points per overtake, 150 per boost, distance points and 30 points per second leading.
 - Results show overtakes, boosts, distance, best position, cumulative time in the lead and spin count.
-- Smooth oval curvature, raised banking on both corners, road-aligned car lean and gentle camera roll. Reduced-motion mode removes camera roll and speed streaks.
+- Continuous asphalt without horizontal grid seams, compact driving messages away from the car, smooth oval curvature, raised banking on both corners, road-aligned car lean and gentle camera roll. Reduced-motion mode removes camera roll and speed streaks.
 - Light contact causes a recoverable nudge, cancels boost and gives a brief wobble/speed loss.
 - Repeated or harder hits build contact heat; reaching the threshold causes a 1.6-second spin with reduced speed and steering. Clean driving cools heat.
 - Solid bumpers remain active during cooldowns; you cannot shove or phase through the pack.

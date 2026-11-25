@@ -1,5 +1,10 @@
 # Release notes
 
+## 1.2.1 — 25 November 2026
+
+- Draw asphalt as one continuous surface, removing horizontal segment seams and alternating road bands. Keep lane markings and kerb stripes.
+- Move all driving messages into a compact HUD area above the road, with a left-side layout on short landscape screens.
+
 ## 1.2.0 — 25 November 2026
 
 - Replace instant contact explosions with recoverable bumps and short wobble/slowdown.
