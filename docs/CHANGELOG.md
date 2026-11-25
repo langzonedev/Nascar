@@ -1,5 +1,9 @@
 # Release notes
 
+## 1.1.1 — 25 November 2026
+
+- Version script, mechanics and stylesheet URLs to prevent cached first-release logic from loading with the new race HUD.
+
 ## 1.1.0 — 25 November 2026
 
 - Replace slower disposable traffic with a persistent 12-car race at closely matched pace.

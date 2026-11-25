@@ -1,4 +1,4 @@
-import {TRACK,FIELD_SIZE,clamp,curveAt,bankAt,racePace,linePace,trackGap,racePosition,createField,stepRivals,drafting,collision,stepCharge} from './engine.js';
+import {TRACK,FIELD_SIZE,clamp,curveAt,bankAt,racePace,linePace,trackGap,racePosition,createField,stepRivals,drafting,collision,stepCharge} from './engine.js?v=1.1.1';
 const $=id=>document.getElementById(id), canvas=$('game'),ctx=canvas.getContext('2d',{alpha:false});
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let W=0,H=0,dpr=1,mode='menu',time=0,last=0,world=TRACK*.2,x=0,vx=0,speed=0,charge=0,boost=0,elapsed=0,score=0,passes=0,boosts=0,position=12,bestPlace=12,leadTime=0,crashTime=0,shake=0,toastTime=0,best=0,carId=0;

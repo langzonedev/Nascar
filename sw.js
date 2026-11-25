@@ -1,4 +1,4 @@
-const CACHE='redline-v1.1.0';const FILES=['./','./index.html','./style.css','./game.js','./engine.js','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
+const CACHE='redline-v1.1.1';const FILES=['./','./index.html','./style.css?v=1.1.1','./game.js?v=1.1.1','./engine.js?v=1.1.1','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES))));
 self.addEventListener('activate',e=>e.waitUntil(Promise.all([caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))),self.clients.claim()])));
 self.addEventListener('message',e=>{if(e.data==='ACTIVATE')self.skipWaiting()});

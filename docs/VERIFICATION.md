@@ -1,6 +1,6 @@
 # Acceptance and verification
 
-25 November 2026 — version 1.1.0, competitive field and banking.
+25 November 2026 — version 1.1.1, competitive field and banking.
 
 ## Goal and authority
 
@@ -45,4 +45,6 @@ Automated checks establish mechanics and controlled race scenarios, not human sk
 
 ## Release and rollback
 
-GitHub Actions runs syntax/tests before deploying main. Worker cache version is `redline-v1.1.0`. Revert the release commit and redeploy for rollback; increment worker cache version on subsequent changed releases.
+GitHub Actions runs syntax/tests before deploying main. Worker cache version is `redline-v1.1.1`. Revert the release commit and redeploy for rollback; increment worker cache version on subsequent changed releases.
+
+The live check exposed mixed cached assets after publication. Script, mechanics import and stylesheet URLs now carry a release version, and the worker precaches those exact URLs.
