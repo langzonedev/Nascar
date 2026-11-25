@@ -9,3 +9,4 @@
 - Add smooth left turns, rising outer banking, car lean, camera roll and outward drift.
 - Make the inside line slightly quicker and wall pressure cost speed.
 - Preserve two-half controls, automatic acceleration/boosts, crash aftermath, pause, retry and PWA updates.
+- Separate build and Pages publication, with unique artifact names, so a failed publication can retry without duplicate uploads.
