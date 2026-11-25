@@ -15,7 +15,9 @@ A sunset stock-car battle built for a phone or desktop. Start **12th in a persis
 
 Acceleration is automatic, with a rolling start at race pace. Opponents have closely matched engines, so driving alongside them offers little advantage. Follow closely until the yellow meter fills, then **pull out when the automatic 2.8-second slingshot fires**. Plan a clear passing lane before the boost arrives.
 
-On corners, the outer edge rises, the cars lean with the banking, and your car drifts gently outward. Short steering corrections hold your line. The inside line is slightly faster; pushing against the edge scrubs speed.
+On corners, steer into the bend and follow the optional green guide: wide entry, inside apex, then open out on exit. Outward pull increases with speed, so boosting through a bend takes more correction. A poor line scrubs speed; wall riding costs more. Rivals use the same corner-speed rules and seek a clear racing line, so untidy cornering can cost the lead.
+
+Use **LINE** to show or hide the guide. The checkered start/finish stripe, overhead gantry, four numbered turn boards and back-straight sign mark the circuit. The lap HUD shows your current timer, last completed lap and personal best; crossing the stripe announces the next lap. Your best lap is saved on this device.
 
 ## Fight for the lead
 
@@ -25,7 +27,7 @@ On corners, the outer edge rises, the cars lean with the banking, and your car d
 - Opponent engines and boosts are independent of race position: no teleporting or rank-based catch-up speeds.
 - Once first, break a chaser's slipstream by changing lines and defend your position. Opponents can retake the lead.
 - 100 points per overtake, 150 per boost, distance points and 30 points per second leading.
-- Results show overtakes, boosts, distance, best position, cumulative time in the lead and spin count.
+- Results show overtakes, boosts, distance, best position, cumulative time in the lead, spin count and lap times.
 - Continuous asphalt without horizontal grid seams, compact driving messages away from the car, smooth oval curvature, raised banking on both corners, road-aligned car lean and gentle camera roll. Reduced-motion mode removes camera roll and speed streaks.
 - Light contact causes a recoverable nudge, cancels boost and gives a brief wobble/speed loss.
 - Repeated or harder hits build contact heat; reaching the threshold causes a 1.6-second spin with reduced speed and steering. Clean driving cools heat.

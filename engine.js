@@ -8,7 +8,30 @@ export function curveAt(z) {
 }
 export const bankAt = z => -curveAt(z) / 1.1 * .34;
 export const racePace = seconds => Math.min(7600, 6000 + seconds * 7);
-export const linePace = (pace, lane, z) => pace * (1 - bankAt(z) * (lane + .81) * .035);
+export const trackPhase = z => ((z % TRACK) + TRACK) % TRACK / TRACK;
+export function racingLineAt(z) {
+  const section = trackPhase(z) * 2 % 1;
+  const apex = smooth((section - .12) / .24) * (1 - smooth((section - .60) / .28));
+  return .28 - apex * .76;
+}
+export function linePace(pace, lane, z) {
+  const corner = bankAt(z) / .34, error = Math.abs(lane - racingLineAt(z));
+  return pace * (1 - corner * (.14 + Math.min(1.4, error) ** 1.4 * .18));
+}
+export const cornerPull = (z, speed, pace) => bankAt(z) / .34 * .22 * (speed / (pace * .9)) ** 2 || 0;
+export function trackSection(z) {
+  const phase = trackPhase(z), section = phase * 2 % 1;
+  if (section < .12 || section > .88) return phase > .25 && phase < .75 ? 'BACK STRAIGHT' : 'HOME STRAIGHT';
+  return 'TURN ' + ((phase < .5 ? 1 : 3) + (section >= .5 ? 1 : 0));
+}
+export const freshLap = (best = null) => ({completed: 0, started: 0, last: null, best});
+export function updateLap(state, progress, crossingTime) {
+  const completed = Math.max(0, Math.floor(progress / TRACK));
+  if (completed <= state.completed) return {...state, crossed: false};
+  const last = crossingTime - state.started;
+  const personalBest = last > 0 && (state.best === null || last < state.best);
+  return {completed, started: crossingTime, last, best: personalBest ? last : state.best, crossed: true, personalBest};
+}
 export const trackGap = (from, to) => ((to - from + TRACK / 2) % TRACK + TRACK) % TRACK - TRACK / 2;
 export const racePosition = (progress, rivals) => 1 + rivals.filter(c => c.progress > progress).length;
 export function drafting(playerX, carX, gap) {return gap > 300 && gap < 2400 && Math.abs(playerX - carX) < .19;}
@@ -59,6 +82,13 @@ export function stepRivals(rivals, player, dt, elapsed) {
       if (tow && !actors.some(o => o.id !== c.id && Math.abs(trackGap(c.progress, o.progress)) < 950 &&
           o.x > Math.min(c.x, tow.x) - .24 && o.x < Math.max(c.x, tow.x) + .24)) c.target = clamp(tow.x, -.66, .66);
       c.decision = 1.5;
+    }
+    // Clear-air rivals drive the same entry/apex/exit line available to the player.
+    if ((!ahead || ahead.gap > 2700) && c.boost <= 0 && bankAt(c.progress + 4500) > .03) {
+      const line = racingLineAt(c.progress + 2500);
+      const safe = !actors.some(o => o.id !== c.id && Math.abs(trackGap(c.progress, o.progress)) < 1000 &&
+        o.x > Math.min(c.x, line) - .24 && o.x < Math.max(c.x, line) + .24);
+      if (safe) c.target = line;
     }
     c.x += clamp(c.target - c.x, -dt * .7, dt * .7);
     const target = linePace(racePace(elapsed) * c.engine, c.x, c.progress) + (c.boost > 0 ? 2400 : 0);

@@ -38,3 +38,20 @@ test('drafting then pulling out can take first place and accumulate lead time',(
  g.run("keys.add('d');for(let i=0;i<40;i++)tick(1/120);keys.clear();for(let i=0;i<480&&mode==='playing';i++)tick(1/120)");
  assert.equal(g.run('mode'),'playing');assert.equal(g.run('position'),1);assert.ok(g.run('leadTime')>0);assert.ok(g.run('passes')>0);
 });
+
+test('crossing the physical finish line completes a timed lap and announces the next lap',()=>{
+ const g=game();g.run('reset();cars=[];world=TRACK-20;elapsed=40;tick(.01)');
+ assert.equal(g.run('laps.completed'),1);assert.ok(g.run('laps.last')>40&&g.run('laps.last')<40.01);assert.match(g.get('toast').textContent,/LAP 2/);assert.equal(g.get('lap').textContent,'02');
+ g.run('world=TRACK-10;tick(.002)');assert.equal(g.run('laps.completed'),1);assert.equal(g.run('laps.crossed'),false);
+ g.get('retry').onclick();assert.equal(g.run('laps.completed'),0);assert.equal(g.run('laps.last'),null);
+});
+test('following the racing line covers more ground than coasting into the outside wall',()=>{
+ const coast=game(),drive=game();
+ coast.run('reset();cars=[];world=TRACK*.15;x=.7;for(let i=0;i<600;i++)tick(1/60)');
+ drive.run("reset();cars=[];world=TRACK*.15;x=racingLineAt(world);for(let i=0;i<600;i++){const target=racingLineAt(world+1500);keys.clear();if(x>target+.035)keys.add('a');else if(x<target-.035)keys.add('d');tick(1/60)}");
+ assert.ok(drive.run('world-TRACK*.15')>coast.run('world-TRACK*.15')*1.08);
+});
+test('a leader who ignores the corner line can lose first to a clean-driving rival',()=>{
+ const g=game();g.run('reset();world=TRACK*.15;x=.7;speed=5200;position=1;cars=cars.slice(0,1);cars[0].progress=world-1200;cars[0].x=racingLineAt(cars[0].progress);cars[0].target=cars[0].x;cars[0].wasAhead=false;for(let i=0;i<480;i++)tick(1/60)');
+ assert.equal(g.run('mode'),'playing');assert.equal(g.run('position'),2);
+});

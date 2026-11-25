@@ -1,6 +1,6 @@
 # Acceptance and verification
 
-25 November 2026 — version 1.2.1, competitive field and banking.
+25 November 2026 — version 1.3.0, competitive field and banking.
 
 ## Goal and authority
 
@@ -19,7 +19,7 @@ Replace passive traffic with opponents at matching pace, make drafting useful fo
 
 ## Automated checks
 
-JavaScript syntax checks and twenty deterministic Node tests:
+JavaScript syntax checks and twenty-six deterministic Node tests:
 
 - Repeating, continuous oval curvature and banking.
 - Draft alignment/safe range, collision separation, charge decay and boost lockout.
@@ -49,7 +49,7 @@ Automated checks establish mechanics and controlled race scenarios, not human sk
 
 ## Release and rollback
 
-GitHub Actions runs syntax/tests before deploying main. Worker cache version is `redline-v1.2.1`. Revert the release commit and redeploy for rollback; increment worker cache version on subsequent changed releases.
+GitHub Actions runs syntax/tests before deploying main. Worker cache version is `redline-v1.3.0`. Revert the release commit and redeploy for rollback; increment worker cache version on subsequent changed releases.
 
 The live check exposed mixed cached assets after publication. Script, mechanics import and stylesheet URLs now carry a release version, and the worker precaches those exact URLs.
 
@@ -60,3 +60,11 @@ Bump: 0.85-second settling period, boost/charge cancelled, immediate speed loss.
 ## Visual pass in 1.2.1
 
 Asphalt is filled as a continuous ribbon instead of alternating per-segment trapezoids, eliminating horizontal seams. Kerb stripes are restricted to the road edges. All driving messages share one compact HUD container; short landscape screens place it to the left. Browser review covered the banked desktop menu, a 390 × 844 portrait race and an 844 × 390 landscape race. Road remained smooth and car remained unobstructed in those checks. Existing twenty mechanics/flow tests passed.
+
+## Lap and driving pass in 1.3.0
+
+A checkered stripe and overhead gantry are rendered at the physical lap boundary. Four numbered turn boards and the back-straight board distinguish sectors. Current/last/PB lap times are visible in the lap HUD, with lap completion messages in the existing feedback dock. Best lap persists locally. A monotonic completed-lap count prevents a bump back across the stripe from counting the same lap twice; crossing time is interpolated within a simulation step.
+
+The optional green line uses a smooth wide-entry, inside-apex, wide-exit path on both bends. Player and rivals share the same line-to-speed function. Cornering costs base speed, and deviation costs more; speed-dependent outward pull requires steering. Rivals choose the ideal line in clear air while respecting occupied lanes. No position-dependent speed changes were added.
+
+Six additional tests cover guide continuity/turn order, line-speed advantage and corner pull, lap timing/PB/no double count, actual game-loop crossing and retry, a steering pilot gaining more distance than coasting into the wall, and a poorly driven leader losing P1 to a clean-driving rival. All 26 tests passed. Desktop/portrait/landscape browser review confirmed the live timer, turn board, green line and functioning LINE toggle. Physical-device handling and human difficulty balance still need player feedback.

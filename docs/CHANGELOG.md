@@ -1,5 +1,14 @@
 # Release notes
 
+## 1.3.0 — 25 November 2026
+
+- Add a physical checkered start/finish stripe and overhead Sunset Speedway gantry.
+- Add four numbered turn boards and a back-straight landmark to make the circuit recognisable.
+- Track current, last and personal-best lap times; announce each completed circuit, preserving best lap on this device.
+- Add an optional racing line with wide entry, inside apex and wide exit. LINE toggles it.
+- Increase outward corner pull with speed and add meaningful corner-line speed loss. Rivals use the same line-based speed model and seek a clear cornering line.
+- Verify that a driver who ignores the line can lose P1 without rubber-banding or fatal contact.
+
 ## 1.2.1 — 25 November 2026
 
 - Draw asphalt as one continuous surface, removing horizontal segment seams and alternating road bands. Keep lane markings and kerb stripes.
