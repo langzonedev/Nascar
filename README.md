@@ -25,9 +25,12 @@ On corners, the outer edge rises, the cars lean with the banking, and your car d
 - Opponent engines and boosts are independent of race position: no teleporting or rank-based catch-up speeds.
 - Once first, break a chaser's slipstream by changing lines and defend your position. Opponents can retake the lead.
 - 100 points per overtake, 150 per boost, distance points and 30 points per second leading.
-- Results show overtakes, boosts, distance, best position and cumulative time in the lead.
+- Results show overtakes, boosts, distance, best position, cumulative time in the lead and spin count.
 - Smooth oval curvature, raised banking on both corners, road-aligned car lean and gentle camera roll. Reduced-motion mode removes camera roll and speed streaks.
-- Crash debris plays for three seconds before results; quick retry and local personal best.
+- Light contact causes a recoverable nudge, cancels boost and gives a brief wobble/speed loss.
+- Repeated or harder hits build contact heat; reaching the threshold causes a 1.6-second spin with reduced speed and steering. Clean driving cools heat.
+- Solid bumpers remain active during cooldowns; you cannot shove or phase through the pack.
+- Contact never ends the run. Use Pause → End run to see results, then retry. Local personal best remains on this device.
 - Pauses on tab/window focus loss; optional synthesized audio, initially muted.
 - Installable PWA with phone icons, offline play after the first load, and an update prompt only when a new version is waiting.
 - No accounts, tracking, external assets, paid services or runtime dependencies.

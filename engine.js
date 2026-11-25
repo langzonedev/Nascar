@@ -71,3 +71,15 @@ export function stepRivals(rivals, player, dt, elapsed) {
     c.progress += c.speed * dt;
   }
 }
+
+export const freshContact = () => ({heat: 0, cooldown: 0, wobble: 0, spin: 0});
+export function advanceContact(state, dt) {
+  return {heat: Math.max(0, state.heat - dt * .12), cooldown: Math.max(0, state.cooldown - dt),
+    wobble: Math.max(0, state.wobble - dt), spin: Math.max(0, state.spin - dt)};
+}
+export function registerContact(state, closingSpeed) {
+  if (state.cooldown > 0) return {...state, event: null};
+  const heat = state.heat + .34 + clamp(Math.abs(closingSpeed) / 12000, 0, .24);
+  if (heat >= 1) return {heat: .2, cooldown: 2.6, wobble: 0, spin: 1.6, event: 'spin'};
+  return {...state, heat, cooldown: .65, wobble: .85, event: 'bump'};
+}

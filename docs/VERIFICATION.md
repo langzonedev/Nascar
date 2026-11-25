@@ -1,6 +1,6 @@
 # Acceptance and verification
 
-25 November 2026 — version 1.1.1, competitive field and banking.
+25 November 2026 — version 1.2.0, competitive field and banking.
 
 ## Goal and authority
 
@@ -19,7 +19,7 @@ Replace passive traffic with opponents at matching pace, make drafting useful fo
 
 ## Automated checks
 
-JavaScript syntax checks and sixteen deterministic Node tests:
+JavaScript syntax checks and twenty deterministic Node tests:
 
 - Repeating, continuous oval curvature and banking.
 - Draft alignment/safe range, collision separation, charge decay and boost lockout.
@@ -31,7 +31,11 @@ JavaScript syntax checks and sixteen deterministic Node tests:
 - Matched pace preserves a gap; boost provides an overtaking advantage.
 - Both screen halves steer; release stops lateral steering velocity.
 - Pause freezes progress; resume continues the same run.
-- Crash plays for three seconds before results; retry resets the run.
+- Contact preserves the run, cancels boost, slows the car and recovers automatically.
+- Repeated contact triggers a temporary spin and recovery; retry clears heat/spin state.
+- A single impact, including boost-speed contact, never causes an immediate spin.
+- Cooldowns suppress repeated frame penalties while solid separation prevents ghosting through a rival.
+- Heat decays during clean driving; recovery clears the slowdown.
 - Ending a paused run closes the pause panel.
 - In a controlled leader fixture, draft charging and steering out produces P1, an overtake and lead time.
 
@@ -45,6 +49,10 @@ Automated checks establish mechanics and controlled race scenarios, not human sk
 
 ## Release and rollback
 
-GitHub Actions runs syntax/tests before deploying main. Worker cache version is `redline-v1.1.1`. Revert the release commit and redeploy for rollback; increment worker cache version on subsequent changed releases.
+GitHub Actions runs syntax/tests before deploying main. Worker cache version is `redline-v1.2.0`. Revert the release commit and redeploy for rollback; increment worker cache version on subsequent changed releases.
 
 The live check exposed mixed cached assets after publication. Script, mechanics import and stylesheet URLs now carry a release version, and the worker precaches those exact URLs.
+
+## Contact behaviour in 1.2.0
+
+Bump: 0.85-second settling period, boost/charge cancelled, immediate speed loss. Heat rises by 0.34–0.58 based on closing speed, then cools at 0.12/second. Hits register at most once per 0.65 seconds, including when multiple cars overlap. Threshold 1 triggers a 1.6-second spin at 42% target pace and 35% steering response. Spin recovery protection lasts 2.6 seconds from spin onset; physical bumper separation remains active throughout. A single heavy hit stays below the spin threshold. The run ends only through Pause → End run.

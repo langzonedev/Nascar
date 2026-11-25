@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {TRACK,FIELD_SIZE,curveAt,bankAt,drafting,collision,stepCharge,createField,stepRivals,racePosition,trackGap,racePace} from '../engine.js';
+import {TRACK,FIELD_SIZE,curveAt,bankAt,drafting,collision,stepCharge,createField,stepRivals,racePosition,trackGap,racePace,freshContact,advanceContact,registerContact} from '../engine.js';
 test('oval and banking are continuous and repeat with two left turns',()=>{
  for(let z=0;z<TRACK;z+=100){assert.ok(Math.abs(curveAt(z)-curveAt(z+TRACK))<1e-10);assert.ok(Math.abs(curveAt(z)-curveAt(z+1))<.001);assert.ok(bankAt(z)>=0&&bankAt(z)<=.34)}
  assert.equal(curveAt(0),0);assert.equal(curveAt(TRACK/2),0);assert.ok(curveAt(TRACK/4)<-1);assert.ok(curveAt(TRACK*3/4)<-1);
@@ -39,4 +39,14 @@ test('the full field seeks slipstreams and generates its own overtaking boosts',
  const player={x:.81,progress:-8000,speed:6000};
  for(let i=0;i<1800;i++){stepRivals(cars,player,1/60,i/60);player.progress+=100;if(cars.some(c=>c.boost>0))boosted=true}
  assert.ok(boosted);assert.equal(cars.length,11);assert.ok(cars.every(c=>Number.isFinite(c.progress)&&Math.abs(c.x)<=.66));
+});
+
+test('one nudge, even at boost speed, never triggers a spin',()=>{
+ for(const closing of [0,1000,5000,12000]){const s=registerContact(freshContact(),closing);assert.equal(s.event,'bump');assert.equal(s.spin,0);assert.ok(s.heat<1)}
+});
+test('contact has a cooldown, repeated hits escalate and clear running cools heat',()=>{
+ let state=registerContact(freshContact(),3000);const heat=state.heat;
+ for(let i=0;i<120;i++)state=registerContact(state,3000);assert.equal(state.heat,heat);assert.equal(state.spin,0);
+ state=advanceContact(state,.7);state=registerContact(state,3000);assert.equal(state.event,'spin');
+ state=advanceContact(state,3);assert.equal(state.spin,0);assert.equal(state.heat,0);assert.equal(state.cooldown,0);
 });
